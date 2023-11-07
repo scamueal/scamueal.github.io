@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Clicker</title>
+  <style>
+    #pic {
+      border-width: 10px;
+      border-color: rgb(0, 0, 0);
+      padding-bottom: 1%;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      color: rgb(0, 0, 0);
+
+      background-color: rgb(241, 237, 210)
+    }
+
+
+
+
+
+    body {
+      position: fixed;
+      width: 99%;
+      background-color: rgb(255, 255, 255);
+      -webkit-user-select: none;
+      /* Safari */
+      -ms-user-select: none;
+      /* IE 10 and IE 11 */
+      user-select: none;
+      /* Standard syntax */
+      background-image: url(https://images.vexels.com/content/79421/preview/money-seamless-pattern-75cf24.png);
+
+    }
+
+    #thetitle {
+      padding-top: 1%;
+      padding-left: 1%;
+      text-align: left;
+      color: rgb(0, 0, 0);
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    #passived{
+      display: none;
+    }
+
+    .upgrades {
+      background-color: rgb(27, 156, 1);
+      border: none;
+      color: rgb(255, 255, 255);
+      padding: 0% 1%;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      margin: .4% .2%;
+      cursor: pointer;
+      border-radius: 10%;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+    }
+
+    .description {
+
+      color: rgb(0, 0, 0);
+      background-color: none;
+      font-size: 15px;
+      padding-left: 1%;
+      max-width: fit-content;
+    }
+
+    #contest {
+      top: 6%;
+
+    }
+
+    #banger {
+      top: 12%;
+      text-align: left;
+      padding-right: 4%;
+    }
+
+    img {
+      width: 99%;
+      height: auto;
+      cursor: pointer;
+
+
+    }
+
+    .stats {
+      background-color: rgb(255, 0, 0);
+      color: aliceblue;
+      text-align: left;
+      font-size: 20px;
+      padding-left: 1%;
+      padding-top: .5%;
+      padding-right: 1%;
+      padding-bottom: .5%;
+      border-radius: 5%;
+      width: fit-content;
+
+    }
+
+    #divide {
+      width: 10%;
+      height: auto;
+      border-color: rgb(185, 185, 185);
+    }
+
+    #divide {
+      padding: .5%;
+    }
+    .buttonInfo{
+      display: none;
+    }
+    .upgrades:hover .buttonInfo {
+  display: block;
+  color: red;
+    }
+    #appear{
+      display: inline;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="pic">
+    <h1 id="thetitle">Idle Factory</p>
+      <h3 id="contest" class="description"> Your family has passed down to you a small, poorly-managed business that
+        makes stuff. Make it better. Grow the business. Get rich quick.
+    </h1>
+    <div id="toes">
+      <button id="upgraded" type="button" class="upgrades">
+        <p id="cost">1 Click Quality upgrade Cost: $50</p>
+        <p id="poop"  class="buttonInfo">+$1/click</p>
+      </button>
+      <button id="workerQuality" type="button" class="upgrades">
+        <p id="lost3">1 Worker: $200</p>
+        <p  class="buttonInfo"> +$1/second </p>
+      </button>
+      <button id="appear"></button>
+      
+       <button id="passived" type="button" class="upgrades" name="pleaseAppear">
+        <p id="lost">1 Worker Speed: $100</p>
+        <p id="fart"  class="buttonInfo">1 Worker = $1/second</p>
+      </button>     
+      <button id="new" type="button" class="upgrades">
+        <p id="lost1">1 Factory Cost: $500</p>
+        <p  class="buttonInfo">1 Factory =$ x 1.5</p>
+      </button>
+      <button id="speed" type="button" class="upgrades">
+        <p id="lost2">Something Upgrade: $150</p>
+        <p  class="buttonInfo">something+ 50</p>
+      </button>      
+
+      <div id="hover"> </div>
+      <div id="divide">
+        <div id="image"><img draggable="false"
+            src="https://classroomclipart.com/image/static7/preview2/factory-building-with-smoke-stack-clip-art-59196.jpg"
+            alt="File Type Not supported">
+        </div>
+      </div>
+    </div>
+      <p class="stats" id="clicker">$: 0</p>
+      <p class="stats" id="fart3">Click Quality Level: 1</p>
+      <p class="stats" id="fart2">Worker Speed: 0</p>
+      <p class="stats" id="fart7">Worker Quality: 1</p>
+      <p class="stats" id="fart4">Factories: 1</p>
+      <p class="stats" id="fart5">something: 1000</p>
+   
+
+    
+
+</body>
+
+</html>
+<script>
+  var score = 100000
+  var multiplier = 1
+  var upgradeprice = 50
+  var rounded
+  var passive = 0
+  var idlecost = 100
+  var exponential = 1
+  var factorycost = 500
+  var idleSpeed = 1
+  var idleSpeedUpgradeCost = 150
+  var workers = 0
+  var workerQualityUpgradeCost = 200
+  var passiveDisplay = 0
+  var passiveUpgrade = 1
+  document.getElementById("image").addEventListener("click", addScore)
+  document.getElementById("upgraded").addEventListener("click", upgrade)
+  document.getElementById("passived").addEventListener("click", workerQualityUpgrade)
+  // may not work
+  document.getElementById("workerQuality").addEventListener("click", upgradeIdle)
+  document.getElementById("new").addEventListener("click", upgradeFactory)
+  document.getElementById("speed").addEventListener("click", workersAmount)
+  setInterval(idle, idleSpeed);
+
+  function displayNumbers() {
+    document.getElementById("fart4").innerText = "Factories: " + exponential
+    document.getElementById("lost1").innerText = "1 Factory Cost: " + "$" + factorycost
+    document.getElementById("clicker").innerText = "$: " + Math.floor(score)
+    document.getElementById("fart3").innerText = "Click Quality Level: " + multiplier
+    document.getElementById("cost").innerText = "1 Click Quality upgrade Cost: " + "$" + upgradeprice
+    document.getElementById("fart2").innerText = "Workers: " + passiveDisplay
+    document.getElementById("lost").innerText = "1 Worker Speed: " + "$" + idlecost
+    document.getElementById("lost3").innerText = "1 Worker: " + "$" + workerQualityUpgradeCost
+    document.getElementById("fart7").innerText = "Worker Speed: " + passiveUpgrade
+
+  }
+
+  function upgradeFactory() {
+    if (score >= factorycost) {
+      // im trying to create exponential but im being driven to insanity by its complexity!!!!!!! So what do I want? I want a function that creates a Factory when i click it. It is supposed to multiply my$ per second and my$ per click by however many Factories I have
+      exponential = exponential + 1
+      score = score - factorycost
+      factorycost = factorycost * 1.5
+      factorycost = Math.round(factorycost)
+      displayNumbers()
+
+    }
+  }
+
+  function addScore() {
+    score = score + multiplier
+    displayNumbers()
+  }
+
+  function upgrade() {
+    if (score >= upgradeprice) {
+
+      multiplier = multiplier + 1
+      score = score - upgradeprice
+      upgradeprice = upgradeprice * 1.5
+      upgradeprice = Math.round(upgradeprice)
+    }
+
+    displayNumbers()
+  }
+  function idle() {
+
+    score = score + (passive * passiveUpgrade)
+    // score = Math.round(score)
+    displayNumbers()
+  }
+  function upgradeIdle() {
+    if (score >= idlecost) {
+      passive = passive + .0035
+      score = score - idlecost
+      idlecost = idlecost * 1.5
+      idlecost = Math.round(idlecost)
+      passiveDisplay = passiveDisplay + 1
+      document.getElementById("fart4").innerText = "Factories: " + exponential
+      document.getElementById("appear").innerText = document.getElementById("pleaseAppear").tagName   /////blah im here in physics
+
+
+      displayNumbers()
+
+    }
+  }
+  function workersAmount() {
+    if (score >= idleSpeedUpgradeCost) {
+      workers = workers + 1
+      score = score - idleSpeedUpgradeCost
+      idleSpeedUpgradeCost = idleSpeedUpgradeCost * 1.5
+      idleSpeedUpgradeCost = Math.round(idleSpeedUpgradeCost)
+      displayNumbers()
+      // i was working here monday morning 11/6 trying to replace old worker speed with amount of workers
+    }
+  }
+  function workerQualityUpgrade() {
+    if (score >= workerQualityUpgradeCost) {
+      passiveUpgrade = passiveUpgrade + 1
+      score = score - workerQualityUpgradeCost
+      workerQualityUpgradeCost = workerQualityUpgradeCost * 1.5
+      workerQualityUpgradeCost = Math.round(workerQualityUpgradeCost)
+      displayNumbers()
+      //unfinished
+    }
+
+  }
+</script>
