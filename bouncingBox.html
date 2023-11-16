@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Bouncing Box</title>
+  <style>
+body{
+  background-color: black;
+  border-color: white;
+  -webkit-user-select: none;
+      /* Safari */
+      -ms-user-select: none;
+      /* IE 10 and IE 11 */
+      user-select: none;
+      /* Standard syntax */
+}
+
+#box{
+    width: 10%;
+    height: auto;
+    
+    position: absolute;
+    top: 45%;
+    left: 45%;
+}
+
+#pic{
+  width: 100%;
+  height:auto
+}
+  </style>
+</head>
+<body>
+  <div id="box">  
+  <img draggable="false" id = "pic" src="https://www.pngall.com/wp-content/uploads/13/Fortnite-Logo-PNG-Clipart.png">
+  </div>
+</body>
+</html>
+<script>
+var y = 45
+var x = 45
+var xp = .1
+var yp = .09
+var thisIsTheOnlyWayIKnowHowToDoIt = 0
+document.getElementById("box").addEventListener("click", activate)
+
+
+function activate(){
+  if (thisIsTheOnlyWayIKnowHowToDoIt==0){
+  thisIsTheOnlyWayIKnowHowToDoIt = thisIsTheOnlyWayIKnowHowToDoIt + 1
+setInterval(moveBox,1)
+}
+}
+
+function moveBox(){
+  x = x + xp
+  y = y + yp
+ 
+  if (x>=89){
+xp = xp *-1
+  }
+  if (x<=0){
+    xp=xp*-1
+  }
+  if (y>=92){
+yp = yp *-1
+  }
+  if (y<=0){
+    yp=yp*-1
+}
+  document.getElementById("box").style.top = y + "%"
+  document.getElementById("box").style.left = x + "%"
+
+}
+</script>

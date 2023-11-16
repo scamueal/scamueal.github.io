@@ -122,6 +122,7 @@
     #appear{
       display: inline;
     }
+    
   </style>
 </head>
 
@@ -140,7 +141,7 @@
         <p id="lost3">1 Worker: $200</p>
         <p  class="buttonInfo"> +$1/second </p>
       </button>
-      <button id="appear"></button>
+      <p id="appear"></p>
       
        <button id="passived" type="button" class="upgrades" name="pleaseAppear">
         <p id="lost">1 Worker Speed: $100</p>
@@ -154,7 +155,6 @@
         <p id="lost2">Something Upgrade: $150</p>
         <p  class="buttonInfo">something+ 50</p>
       </button>      
-
       <div id="hover"> </div>
       <div id="divide">
         <div id="image"><img draggable="false"
@@ -255,8 +255,7 @@
       idlecost = Math.round(idlecost)
       passiveDisplay = passiveDisplay + 1
       document.getElementById("fart4").innerText = "Factories: " + exponential
-      document.getElementById("appear").innerText = document.getElementById("pleaseAppear").tagName   /////blah im here in physics
-
+      document.getElementById("appear").innerText = document.getElementById("passived").innerText+document.getElementById("lost").innerText// blah 
 
       displayNumbers()
 
