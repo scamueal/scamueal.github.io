@@ -31,7 +31,7 @@ body{
 }
   </style>
 </head>
-<body>
+<body id="ev">
   <div id="box">  
   <img draggable="false" id = "pic" src="https://www.pngall.com/wp-content/uploads/13/Fortnite-Logo-PNG-Clipart.png">
   </div>
@@ -40,11 +40,10 @@ body{
 <script>
 var y = 45
 var x = 45
-var xp = .1
-var yp = .09
+var xp = .2
+var yp = .18
 var thisIsTheOnlyWayIKnowHowToDoIt = 0
 document.getElementById("box").addEventListener("click", activate)
-
 
 function activate(){
   if (thisIsTheOnlyWayIKnowHowToDoIt==0){
@@ -56,21 +55,26 @@ setInterval(moveBox,1)
 function moveBox(){
   x = x + xp
   y = y + yp
- 
+  
   if (x>=89){
 xp = xp *-1
+
   }
   if (x<=0){
     xp=xp*-1
+
   }
   if (y>=92){
 yp = yp *-1
+
   }
   if (y<=0){
     yp=yp*-1
 }
+
   document.getElementById("box").style.top = y + "%"
   document.getElementById("box").style.left = x + "%"
-
 }
+
 </script>
+ 

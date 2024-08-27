@@ -138,7 +138,7 @@
         <p id="poop"  class="buttonInfo">+$1/click</p>
       </button>
       <button id="workerQuality" type="button" class="upgrades">
-        <p id="lost3">1 Worker: $200</p>
+        <p id="lost3">1 Worker: $100</p>
         <p  class="buttonInfo"> +$1/second </p>
       </button>
       <p id="appear"></p>
@@ -177,7 +177,7 @@
 
 </html>
 <script>
-  var score = 100000
+  var score = 10000
   var multiplier = 1
   var upgradeprice = 50
   var rounded
@@ -185,7 +185,7 @@
   var idlecost = 100
   var exponential = 1
   var factorycost = 500
-  var idleSpeed = 1
+  var idleSpeed = 1000
   var idleSpeedUpgradeCost = 150
   var workers = 0
   var workerQualityUpgradeCost = 200
@@ -193,7 +193,7 @@
   var passiveUpgrade = 1
   document.getElementById("image").addEventListener("click", addScore)
   document.getElementById("upgraded").addEventListener("click", upgrade)
-  document.getElementById("passived").addEventListener("click", workerQualityUpgrade)
+  //document.getElementById("workerQuality").addEventListener("click", workerQualityUpgrade)
   // may not work
   document.getElementById("workerQuality").addEventListener("click", upgradeIdle)
   document.getElementById("new").addEventListener("click", upgradeFactory)
@@ -208,9 +208,9 @@
     document.getElementById("cost").innerText = "1 Click Quality upgrade Cost: " + "$" + upgradeprice
     document.getElementById("fart2").innerText = "Workers: " + passiveDisplay
     document.getElementById("lost").innerText = "1 Worker Speed: " + "$" + idlecost
-    document.getElementById("lost3").innerText = "1 Worker: " + "$" + workerQualityUpgradeCost
+    document.getElementById("lost3").innerText = "1 Worker: " + "$" + idlecost
     document.getElementById("fart7").innerText = "Worker Speed: " + passiveUpgrade
-
+    document.getElementById("lost2").innerText = "Something Upgrade: " + idleSpeed
   }
 
   function upgradeFactory() {
@@ -242,14 +242,14 @@
     displayNumbers()
   }
   function idle() {
-
+    
     score = score + (passive * passiveUpgrade)
     // score = Math.round(score)
     displayNumbers()
   }
   function upgradeIdle() {
     if (score >= idlecost) {
-      passive = passive + .0035
+      passive = passive + 1
       score = score - idlecost
       idlecost = idlecost * 1.5
       idlecost = Math.round(idlecost)
@@ -267,6 +267,9 @@
       score = score - idleSpeedUpgradeCost
       idleSpeedUpgradeCost = idleSpeedUpgradeCost * 1.5
       idleSpeedUpgradeCost = Math.round(idleSpeedUpgradeCost)
+      //new and may not work --- below
+      idleSpeed = idleSpeed - 100
+      // make it update the setInterval so that it doesnt just run when the page does
       displayNumbers()
       // i was working here monday morning 11/6 trying to replace old worker speed with amount of workers
     }
@@ -282,4 +285,5 @@
     }
 
   }
+ 
 </script>

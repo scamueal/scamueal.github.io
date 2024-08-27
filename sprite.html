@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Press Start 2P' rel='stylesheet'>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title></title>
+  <style>
+    #words {
+      top: 15%;
+      left: 10%;
+      text-align: center;
+      position: absolute;
+      color: rgb(53, 34, 24);
+      text-shadow: -3px 3px 0#000000;
+      font-size: 40px;
+    }
+
+    body {
+      background-color: rgb(22, 22, 22);
+      font-family: 'Press Start 2P';
+     
+      
+    }
+
+    #canvas {
+      position: absolute;
+      top: 10%;
+      left: 5%;
+      background-color: aliceblue;
+    }
+
+
+    #info { position: absolute;
+      top: 43%;
+      left: 10%;
+      color: rgb(53, 34, 24);
+      text-align: left;
+      font-size: 20px;
+      line-height: 20px;
+      max-width: 28%;
+      text-shadow: -1px 1px 0#000000;
+    }
+ 
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" width="1400" height="750">
+    <img hidden id="forwardsOne" src="dylan.png">
+    <img hidden id="backwardsOne" src="dylan (1).png">
+    <img hidden id="forwardsTwo" src="dylan (4).png">
+    <img hidden id="backwardsTwo" src="dylan (5).png">
+    <img hidden id="idleFront" src="dylanIdleFront.png">
+    <img hidden id="idleBack" src="dylanIdleBack.png">
+    <img hidden id="idleShadowOne" src="shadowIdle1.png">
+    <img hidden id="idleShadowTwo" src="shadowIdle2.png">
+    <img hidden id="idleShadowThree" src="shadowIdle3.png">
+
+  </canvas>
+  
+  <div id="info">
+  <h4>to move, use w⍐ a⍇ s⍗ d⍈ </h4></div>
+  <h1 id="words"> Blob simulator </h1>
+ 
+</body>
+
+</html>
+<script>
+  var x = 200
+  var y = 200
+
+  var canvas = document.getElementById("canvas")
+  var ctx = canvas.getContext("2d")
+  var img1 = document.getElementById("forwardsOne")
+  var img2 = document.getElementById("backwardsOne")
+  var img3 = document.getElementById("forwardsTwo")
+  var img4 = document.getElementById("backwardsTwo")
+  var imgIdleFront = document.getElementById("idleFront")
+  var imgIdleBack = document.getElementById("idleBack")
+  var imgIdleShadowOne = document.getElementById("idleShadowOne")
+  var imgIdleShadowTwo = document.getElementById("idleShadowTwo")
+  var imgIdleShadowThree = document.getElementById("idleShadowThree")
+
+  var frame = 0
+  var aIsDown = false
+  var dIsDown = false
+  var wIsDown = false
+  var sIsDown = false
+
+  var xDirection = 1.5
+  var yDirection = 1
+
+  var xMinBoundary = 0
+  var xMaxBoundary = 1280
+  var yMinBoundary = 0
+  var yMaxBoundary = 650
+
+  ctx.clearRect(0, 0, 2000, 2000)
+  setInterval(main, 1)
+
+  document.addEventListener("keydown", startMovingLeft)
+  document.addEventListener("keyup", stopMovingLeft)
+  document.addEventListener("keydown", startMovingRight)
+  document.addEventListener("keyup", stopMovingRight)
+
+  document.addEventListener("keydown", startMovingUp)
+  document.addEventListener("keyup", stopMovingUp)
+  document.addEventListener("keydown", startMovingDown)
+  document.addEventListener("keyup", stopMovingDown)
+
+  function startMovingLeft(e) {
+    if (e.key === "ArrowLeft" || e.key === "a") {
+      aIsDown = true
+      dIsDown = false
+      xDirection = -1.5
+    }
+  }
+  function stopMovingLeft(e) {
+    if (e.key === "ArrowLeft" || e.key === "a") {
+      aIsDown = false
+    }
+  }
+  function startMovingRight(e) {
+    if (e.key === "d" || e.key === "ArrowRight") {
+      dIsDown = true
+      aIsDown = false
+      xDirection = 1.5
+    }
+  }
+  function stopMovingRight(e) {
+    if (e.key === "d" || e.key === "ArrowRight") {
+      dIsDown = false
+    }
+  }
+  function startMovingUp(e) {
+    if (e.key === "w" || e.key === "ArrowUp") {
+      wIsDown = true
+      sIsDown = false
+      yDirection = -1
+    }
+  }
+  function stopMovingUp(e) {
+    if (e.key === "w" || e.key === "ArrowUp") {
+      wIsDown = false
+    }
+  }
+  function startMovingDown(e) {
+    if (e.key === "s" || e.key === "ArrowDown") {
+      sIsDown = true
+      wIsDown = false
+      yDirection = 1
+    }
+  }
+  function stopMovingDown(e) {
+    if (e.key === "s" || e.key === "ArrowDown") {
+      sIsDown = false
+    }
+  }
+  function main() {
+    if (aIsDown === true) {
+      if (x > xMinBoundary) {
+        x = x + xDirection
+      }
+    }
+
+    if (dIsDown === true) {
+      if (x < xMaxBoundary) {
+
+        x = x + xDirection
+      }
+
+    }
+    if (wIsDown === true) {
+      if (y > yMinBoundary) {
+
+        y = y + yDirection
+      }
+    }
+
+    if (sIsDown === true) {
+      if (y < yMaxBoundary) {
+
+        y = y + yDirection
+
+      }
+    }
+
+    ctx.clearRect(0, 0, 2000, 2000)
+  
+ 
+    frame = frame + 2.2
+    if (frame >= 320) {
+      frame = 0
+    }
+    if (wIsDown === true || aIsDown === true || sIsDown === true || dIsDown === true) {
+      if (xDirection > 0) {
+        drawFront()
+      } else {
+        drawBack()
+      }
+    } else if (xDirection > 0) {
+      drawIdleFront()
+    } else if (xDirection < 0) {
+      drawIdleBack()
+    }
+
+  }
+  function drawFront() {
+    if (frame <= 40) {
+      ctx.drawImage(imgIdleShadowTwo, 0, 0, 512, 512, x + 10, y + 95, 125, 100)
+      ctx.drawImage(img1, 0, 0, 512, 512, x, y, 125, 100)
+    } else if (frame <= 90) {
+      ctx.drawImage(imgIdleShadowTwo, 0, 0, 512, 512, x + 10, y + 95, 125, 100)
+      ctx.drawImage(img1, 514, 0, 512, 512, x, y, 125, 100)
+    } else if (frame <= 160) {
+      ctx.drawImage(imgIdleShadowOne, 0, 0, 512, 512, x + 20, y + 95, 125, 100)
+      ctx.drawImage(imgIdleShadowOne, 0, 0, 512, 512, x, y + 95, 125, 100)
+  
+      ctx.drawImage(img3, 0, 0, 512, 512, x, y - 3, 125, 100)
+    } else if (frame <= 210) {
+      ctx.drawImage(imgIdleShadowTwo, 0, 0, 512, 512, x + 10, y + 95, 125, 100)
+      ctx.drawImage(img1, 514, 0, 512, 512, x, y, 125, 100)
+    } else if (frame <= 250) {
+      ctx.drawImage(imgIdleShadowTwo, 0, 0, 512, 512, x + 10, y + 95, 125, 100)
+      ctx.drawImage(img1, 0, 0, 512, 512, x, y, 125, 100)
+    } else if (frame <= 320) {
+      ctx.drawImage(imgIdleShadowOne, 0, 0, 512, 512, x + 10, y + 95, 125, 100)
+      
+     
+      ctx.drawImage(img3, 550, 0, 512, 512, x + 10, y - 7, 125, 100)
+    }
+  }
+  function drawBack() {
+
+    if (frame <= 40) {
+      ctx.drawImage(imgIdleShadowTwo, 0, 0, 512, 512, x - 6, y + 95, 125, 100)
+      ctx.drawImage(img2, 512, 0, 510, 512, x, y, 125, 100)
+    } else if (frame <= 90) {
+      ctx.drawImage(imgIdleShadowTwo, 0, 0, 512, 512, x - 6, y + 95, 125, 100)
+      ctx.drawImage(img2, 0, 0, 512, 512, x, y, 125, 100)
+    } else if (frame <= 160) {
+      ctx.drawImage(imgIdleShadowOne, 0, 0, 512, 512, x + 5, y + 95, 125, 100)
+      ctx.drawImage(imgIdleShadowOne, 0, 0, 512, 512, x - 16, y + 95, 125, 100)
+      ctx.drawImage(img4, 512, 0, 512, 512, x, y - 3, 125, 100)
+    } else if (frame <= 210) {
+      ctx.drawImage(imgIdleShadowTwo, 0, 0, 512, 512, x - 6, y + 95, 125, 100)
+      ctx.drawImage(img2, 0, 0, 500, 510, x, y, 125, 100)
+    } else if (frame <= 250) {
+      ctx.drawImage(imgIdleShadowTwo, 0, 0, 512, 512, x - 6, y + 95, 125, 100)
+      ctx.drawImage(img2, 512, 0, 510, 510, x, y, 125, 100)
+    } else if (frame <= 320) {
+      ctx.drawImage(imgIdleShadowOne, 0, 0, 512, 512, x - 6, y + 95, 125, 100)
+      ctx.drawImage(img4, 0, 0, 470, 510, x, y - 7, 125, 100)
+    }
+  }
+  function drawIdleFront() {
+    if (frame <= 80) {
+      ctx.drawImage(imgIdleShadowOne, 0, 0, 512, 512, x, y + 95, 125, 100)
+      ctx.drawImage(imgIdleFront, 0, 0, 512, 512, x, y, 125, 100)
+
+    } else if (frame <= 160) {
+      ctx.drawImage(imgIdleShadowTwo, 0, 0, 512, 512, x, y + 95, 125, 100)///working hewre!!
+      ctx.drawImage(imgIdleFront, 0, 0, 512, 512, x, y + 2, 125, 100)
+
+    } else if (frame <= 240) {
+      ctx.drawImage(imgIdleShadowTwo, 0, 0, 512, 512, x, y + 95, 125, 100)
+      ctx.drawImage(imgIdleFront, 0, 0, 512, 512, x, y + 5, 125, 100)
+
+    } else if (frame <= 320) {
+      ctx.drawImage(imgIdleShadowTwo, 0, 0, 512, 512, x, y + 95, 125, 100)
+      ctx.drawImage(imgIdleFront, 0, 0, 512, 512, x, y + 4, 125, 100)
+
+    }
+  }
+  function drawIdleBack() {
+    if (frame <= 80) {
+      ctx.drawImage(imgIdleShadowOne, 0, 0, 512, 512, x + 2, y + 95, 125, 100)
+      ctx.drawImage(imgIdleBack, 512, 0, 510, 512, x, y, 125, 100)
+
+    } else if (frame <= 160) {
+      ctx.drawImage(imgIdleShadowTwo, 0, 0, 512, 512, x + 2, y + 95, 125, 100)
+      ctx.drawImage(imgIdleBack, 512, 0, 510, 512, x, y + 2, 125, 100)
+
+    } else if (frame <= 240) {
+      ctx.drawImage(imgIdleShadowTwo, 0, 0, 512, 512, x + 2, y + 95, 125, 100)
+      ctx.drawImage(imgIdleBack, 512, 0, 510, 512, x, y + 5, 125, 100)
+
+    } else if (frame <= 320) {
+      ctx.drawImage(imgIdleShadowTwo, 0, 0, 512, 512, x + 2, y + 95, 125, 100)
+      ctx.drawImage(imgIdleBack, 512, 0, 510, 512, x, y + 4, 125, 100)
+
+    }
+  }
+
+</script>
