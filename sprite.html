@@ -13,7 +13,7 @@
       text-align: center;
       position: absolute;
       color: rgb(53, 34, 24);
-      text-shadow: -3px 3px 0#000000;
+      text-shadow: -3px 3px  rgba(0, 0, 0, .7);
       font-size: 40px;
     }
 
@@ -39,8 +39,9 @@
       text-align: left;
       font-size: 20px;
       line-height: 20px;
-      max-width: 28%;
-      text-shadow: -1px 1px 0#000000;
+      max-width: 32%;
+      text-shadow: -1px 1px rgba(0, 0, 0, .7);
+
     }
  
   </style>
@@ -61,8 +62,8 @@
   </canvas>
   
   <div id="info">
-  <h4>to move, use w⍐ a⍇ s⍗ d⍈ </h4></div>
-  <h1 id="words"> Blob simulator </h1>
+  <h4>to move, use w⍐ a⍇ s⍗ and d⍈ </h4></div>
+  <h1 id="words"> dumb simulator </h1>
  
 </body>
 
@@ -111,50 +112,50 @@
   document.addEventListener("keyup", stopMovingDown)
 
   function startMovingLeft(e) {
-    if (e.key === "ArrowLeft" || e.key === "a") {
+    if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") {
       aIsDown = true
       dIsDown = false
       xDirection = -1.5
     }
   }
   function stopMovingLeft(e) {
-    if (e.key === "ArrowLeft" || e.key === "a") {
+    if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") {
       aIsDown = false
     }
   }
   function startMovingRight(e) {
-    if (e.key === "d" || e.key === "ArrowRight") {
+    if (e.key === "d" || e.key === "ArrowRight" || e.key === "D") {
       dIsDown = true
       aIsDown = false
       xDirection = 1.5
     }
   }
   function stopMovingRight(e) {
-    if (e.key === "d" || e.key === "ArrowRight") {
+    if (e.key === "d" || e.key === "ArrowRight" || e.key === "D") {
       dIsDown = false
     }
   }
   function startMovingUp(e) {
-    if (e.key === "w" || e.key === "ArrowUp") {
+    if (e.key === "w" || e.key === "ArrowUp" || e.key === "W") {
       wIsDown = true
       sIsDown = false
       yDirection = -1
     }
   }
   function stopMovingUp(e) {
-    if (e.key === "w" || e.key === "ArrowUp") {
+    if (e.key === "w" || e.key === "ArrowUp" || e.key === "W") {
       wIsDown = false
     }
   }
   function startMovingDown(e) {
-    if (e.key === "s" || e.key === "ArrowDown") {
+    if (e.key === "s" || e.key === "ArrowDown" || e.key === "S") {
       sIsDown = true
       wIsDown = false
       yDirection = 1
     }
   }
   function stopMovingDown(e) {
-    if (e.key === "s" || e.key === "ArrowDown") {
+    if (e.key === "s" || e.key === "ArrowDown" || e.key === "S") {
       sIsDown = false
     }
   }

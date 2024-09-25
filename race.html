@@ -81,8 +81,8 @@
 
         #Timer {
          position: absolute;
-            top:60%;
-            left: .5%;
+            top:30%;
+            left: 30%;
             font-family: Georgia, 'Times New Roman', Times, serif;
             text-align: center;
             font-size: 200%;
@@ -169,7 +169,7 @@
 
         </div>
 
-        <div class="werds">Mr. Darouse has committed a felony! He has run. Cop has chase</div>
+        <div class="werds">Mr. Darouse has committed a felony! Mr. Darouse tries to outrun the cop</div>
         <div draggable="false" id="winner" class="werds" draggable="false">
              Restart: "t"
         </div>
@@ -180,7 +180,7 @@
         <div class="werds" id="popo">Move car: "l"</div>
         <div>create a different thing to show the winnner</div>
     </div>
-    <div id="Timer">Start race: "y"</div>
+    <div id="Timer">Hit "y" to start race</div>
    <div id="poopy"><img id="lmao" src="https://static.wikia.nocookie.net/063a2814-541f-4dbe-a96f-fe8718b227bf"></div>
     <p1 id="gang"> Nick phillips was here </p1>
 
@@ -207,12 +207,20 @@
     }
     function countdown() {
         if (timerCanRun === true) {
-            if (timeLeft === 0) {
+            if(timeLeft < -1){
                 clearTimeout(timerId)
-                //    startGame()
-                elem.innerHTML = "Go!"
+                elem.innerHTML = ""
+               elem.innerHTML.style.opacity = 0 + "%"
                 timerdone = true
                 timerCanRun = false
+                
+            }
+          else if (timeLeft <= 0) {
+            timeLeft--
+                //    startGame()
+                elem.innerHTML = "Go!"
+               
+                
                 
             } else {
                 elem.innerHTML = "Start in " + timeLeft
