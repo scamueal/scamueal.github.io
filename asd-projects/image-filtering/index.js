@@ -1,4 +1,3 @@
-
 // This is a small program. There are only two sections. This first section is what runs
 // as soon as the page loads.
 $(document).ready(function () {
@@ -21,12 +20,9 @@ function resetAndRender() {
 // all of your apply functions
 function applyAndRender() {
   // Multiple TODOs: Call your apply function(s) here
-  
- 
-  reddify();
-
-
-  applyFilter();
+  applyFilter(reddify);
+  applyFilterNoBackground(decreaseBlue);
+  applyFilterNoBackground(increaseGreenByBlue);
 
   // do not change the below line of code
   render($("#display"), image);
@@ -37,76 +33,74 @@ function applyAndRender() {
 /////////////////////////////////////////////////////////
 
 // TODO 1, 2 & 4: Create the applyFilter function here
-function applyFilter() {
 
-  for (let r = 0; r < image.length; r++) {
-    for (let c = 0; c < image[r].length; c++) {
-      let rgbArr = rgbStringToArray(image[r][c]);
+// causes a filter to be appiled to luigi after clicking the "Apply Filter" button
+function applyFilter(filterFunction) {
+  for (let i = 0; i < image.length; i++) {
+    for (let j = 0; j < image[i].length; j++) {
 
-      image[r][c] = rgbArrayToString(rgbArr);
+      var rgbString = image[i][j];
+
+      var rgbNumbers = rgbStringToArray(rgbString);
+
+      filterFunction(rgbNumbers);
+
+      rgbString = rgbArrayToString(rgbNumbers);
+
+      image[i][j] = rgbString;
     }
   }
 }
 
 // TODO 7: Create the applyFilterNoBackground function
-function applyFilterNoBackground() {
 
-  
-  for (let r = 0; r < image.length; r++) {
-    for (let c = 0; c < image[r].length; c++) {
-
-      if (image[r][c] !== "rgb(150, 150, 150)") {
-        let rgbArr = rgbStringToArray(image[r][c]);
-
-
-        rgbArr[RED] = Math.min(255, rgbArr[RED] + 50);  
-
-       
-        image[r][c] = rgbArrayToString(rgbArr);
+// applies a filter to the image without changing the background color
+function applyFilterNoBackground(filterFunction) {
+  for (let i = 0; i < image.length; i++) {
+    for (let j = 0; j < image[i].length; j++) {
+      var rgbString = image[i][j];
+      var backgroundColor = image[0][0]
+      if (rgbString !== backgroundColor) {
+        var rgbNumbers = rgbStringToArray(rgbString);
+        filterFunction(rgbNumbers);
+        rgbString = rgbArrayToString(rgbNumbers);
+        image[i][j] = rgbString;
       }
     }
   }
 }
 
 // TODO 5: Create the keepInBounds function
-function keepInBounds(rgbArr) {
 
-  rgbArr[RED] = Math.max(0, Math.min(255, rgbArr[RED]));
-  rgbArr[GREEN] = Math.max(0, Math.min(255, rgbArr[GREEN]));
-  rgbArr[BLUE] = Math.max(0, Math.min(255, rgbArr[BLUE]));
-  
-  return rgbArr;
+// makes sure color values stay between 0 and 255
+function keepInBounds(number) {
+  number < 0 ? number = 0 : (number > 255 ? number = 255 : number = number);
+  return number;
 }
 
+console.log(keepInBounds(-30)); // should print 0
+console.log(keepInBounds(300)); // should print 255
+console.log(keepInBounds(127)); // should print 127
+
 // TODO 3: Create reddify function
-function reddify() {
 
-  
-  for (let r = 0; r < image.length; r++) {
-    for (let c = 0; c < image[r].length; c++) {
-      let rgbArr = rgbStringToArray(image[r][c]);
-      rgbArr[RED] = Math.min(255, rgbArr[RED] + 100); 
-
-      rgbArr = keepInBounds(rgbArr);
-
-  
-      image[r][c] = rgbArrayToString(rgbArr);
-    }
-  }
+// makes the image become more red by changing the red value to 200
+function reddify(array) {
+  array[RED] = 200;
 }
 
 // TODO 6: Create more filter functions
-function applyBlue() {
-  for (let r = 0; r < image.length; r++) {
-    for (let c = 0; c < image[r].length; c++) {
-      let rgbArr = rgbStringToArray(image[r][c]);
 
-
-      rgbArr[BLUE] = Math.min(255, rgbArr[BLUE] + 100);
-
-      rgbArr = keepInBounds(rgbArr);
-
-      image[r][c] = rgbArrayToString(rgbArr);
-    }
-  }
+// makes the image less blue by subtracting 50 from the blue value
+function decreaseBlue(barr) {
+  barr[BLUE] = barr[BLUE] - 50;
+  barr[BLUE] = keepInBounds(barr[BLUE]);
 }
+
+// makes the image more green by adding the blue value to the green value
+function increaseGreenByBlue(garr) {
+  garr[GREEN] = keepInBounds(garr[BLUE] + garr[GREEN]);
+  garr[GREEN] = keepInBounds(garr[GREEN]);
+}
+
+// CHALLENGE code goes below here
